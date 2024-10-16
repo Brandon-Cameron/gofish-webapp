@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block the_body %}
+    
+    <h2>Do you have a {{ value }}</h2>
+
+    {% for card in cards %}
+        <a href="/pick/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>
+    {% endfor %}
+
+    <p>
+        <a href="/pick/0">No, I don't have a {{ value }}</a>
+    </p>
+
+{% endblock %}

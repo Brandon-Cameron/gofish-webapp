@@ -1,0 +1,9 @@
+CACHEDIR.TAG
+.lock
+.ipynb_checkpoints/
+__pycache__/
+Lib/
+bin/
+Scripts/
+etc/
+share/
