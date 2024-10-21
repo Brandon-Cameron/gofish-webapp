@@ -3,12 +3,14 @@
 {% block the_body %}
 
     <h2>The computer has {{ n_computer }} cards</h2>
+    <h3>Computer Pairs: {{ computer_pairs }}</h3>
 
     {% for _ in range(n_computer) %}
         <img src="/static/cards/back.png" style="width:10%; height:10%;">
     {% endfor %}
 
     <h2>Here are your cards</h2>
+    <h3>Player Pairs: {{ player_pairs }}</h3>
     
     {% for card in cards %}
         <a href="/select/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>

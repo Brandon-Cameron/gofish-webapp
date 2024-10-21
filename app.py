@@ -34,6 +34,8 @@ def start():
         "startgame.html",
         title = "Welcome to GoFish for the Web",
         cards = card_images, # available in the template as {{ cards }}
+        player_pairs = int(len(session["player_pairs"]) / 2),
+        computer_pairs = int(len(session["computer_pairs"]) / 2),
         n_computer = len(session["computer"]), #available in the template as {{ n_computer }}
     )
 
@@ -95,6 +97,8 @@ def process_the_picked_card(value):
         "startgame.html",
         title = "Keep Playing",
         cards = card_images, # available in the template as {{ cards }}
+        player_pairs = int(len(session["player_pairs"]) / 2),
+        computer_pairs = int(len(session["computer_pairs"]) / 2),
         n_computer = len(session["computer"]), #available in the template as {{ n_computer }}
     )
 
