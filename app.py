@@ -24,6 +24,9 @@ def reset_state():
     session["computer"], pairs = cards.identify_remove_pairs(session["computer"])
     session["computer_pairs"].extend(pairs)
 
+    session["gameover"] = False
+    session["state"] = ""
+
 @app.get("/")
 @app.get("/startgame")
 def start():
@@ -41,6 +44,8 @@ def start():
 
 @app.get("/select/<value>")
 def process_card_selection(value):
+    
+
     found_it = False
     for n, card in enumerate(session["computer"]):
         if card.startswith(value):
@@ -71,6 +76,15 @@ def process_card_selection(value):
     the_value = card[: card.find(" ")]
 
     card_images = [ card.lower().replace(" ","_") + ".png" for card in session["player"]]
+
+    check_game_over()
+    if(session["gameover"] == True):
+        return render_template(
+             "gameover.html",
+             title = "Game Over",
+             state = session["state"]
+        )
+
     return render_template(
         "pickcard.html",
         title = "The computer wants to know",
@@ -80,6 +94,8 @@ def process_card_selection(value):
 
 @app.get("/pick/<value>")
 def process_the_picked_card(value):
+    
+
     if value == "0":
             session["computer"].append(session["deck"].pop())
     else:
@@ -92,6 +108,13 @@ def process_the_picked_card(value):
     session["computer_pairs"].extend(pairs)
 
     card_images = [ card.lower().replace(" ","_") + ".png" for card in session["player"]]
+    check_game_over()
+    if(session["gameover"] == True):
+        return render_template(
+             "gameover.html",
+             title = "Game Over",
+             state = session["state"]
+        )
     
     return render_template(
         "startgame.html",
@@ -101,5 +124,11 @@ def process_the_picked_card(value):
         computer_pairs = int(len(session["computer_pairs"]) / 2),
         n_computer = len(session["computer"]), #available in the template as {{ n_computer }}
     )
+    
+@app.get("/gameover")
+def check_game_over():
+    if(len(session["player"]) == 0):
+        session["state"] = "Player Wins"
+        session["gameover"] = True
 
 app.run(debug=True)
