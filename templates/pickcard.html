@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 
+<link rel="stylesheet" href="static/webapp.css">
+
 {% block the_body %}
     
     <h2>Do you have a {{ value }}</h2>
 
+    <div id="cards">
     {% for card in cards %}
-        <a href="/pick/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>
+        
+        <a class="cards" href="/pick/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>
     {% endfor %}
+    </div>
 
-    <p>
-        <a href="/pick/0">No, I don't have a {{ value }}</a>
-    </p>
+    <div id="center">
+        <a class="button" href="/pick/0">No, I don't have a {{ value }}</a>
+    </div>
 
 {% endblock %}

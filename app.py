@@ -40,6 +40,7 @@ def start():
         player_pairs = int(len(session["player_pairs"]) / 2),
         computer_pairs = int(len(session["computer_pairs"]) / 2),
         n_computer = len(session["computer"]), #available in the template as {{ n_computer }}
+        n_deck = len(session["deck"])
     )
 
 @app.get("/select/<value>")
@@ -123,12 +124,34 @@ def process_the_picked_card(value):
         player_pairs = int(len(session["player_pairs"]) / 2),
         computer_pairs = int(len(session["computer_pairs"]) / 2),
         n_computer = len(session["computer"]), #available in the template as {{ n_computer }}
+        n_deck = len(session["deck"])
     )
     
 @app.get("/gameover")
 def check_game_over():
     if(len(session["player"]) == 0):
-        session["state"] = "Player Wins"
+        session["state"] = "Player Wins!"
         session["gameover"] = True
+        return
+
+    if(len(session["computer"]) == 0):
+        session["state"] = "Computer Wins!"
+        session["gameover"] = True
+        return
+
+    if(len(session["deck"]) == 0):
+        if(session["computer_pairs"] == session["player_pairs"]):
+            session["state"] = "Draw"
+            session["gameover"] = True
+            return
+
+        if(session["computer_pairs"] > session["player_pairs"]):
+            session["state"] = "Computer Wins!"
+            session["gameover"] = True
+            return
+        else:
+            session["state"] = "Player Wins!"
+            session["gameover"] = True
+            return
 
 app.run(debug=True)

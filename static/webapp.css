@@ -1,0 +1,78 @@
+body {
+    background-color: rgb(5, 85, 160);
+}
+
+a.button {
+    display: inline-block;
+    color: black;
+    background-color: white;
+    padding: 14px 24px;
+    font-size: 50px;
+    border-radius: 2em;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: red;
+}
+
+a.cards {
+    margin: auto;
+    display: inline;
+    width: 50%;
+    padding: 0px 0px;
+}
+
+h3 {
+    margin: auto;
+    width: 50%;
+    font-size: 50px;
+    text-align: center;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    margin: auto;
+    width: 50%;
+    font-size: 50px;
+    text-align: center;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.flash {
+    font-size: 50px;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    list-style-type: none;
+}
+
+#cards {
+    margin: auto;
+    text-align: center;
+}
+
+#deck { 
+    margin: auto;
+    position: absolute;
+    bottom: 390px;
+    width: 100%;
+}
+
+#deckNo {
+    position: absolute;
+    bottom: 107px;
+    left: 70px;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#center {
+    text-align: center;
+}

@@ -2,18 +2,31 @@
 
 {% block the_body %}
 
-    <h2>The computer has {{ n_computer }} cards</h2>
-    <h3>Computer Pairs: {{ computer_pairs }}</h3>
+    <h2>Computer Hand</h2>
 
+    <div id="cards">
     {% for _ in range(n_computer) %}
         <img src="/static/cards/back.png" style="width:10%; height:10%;">
     {% endfor %}
+    </div>
 
-    <h2>Here are your cards</h2>
-    <h3>Player Pairs: {{ player_pairs }}</h3>
+    <h3>Computer Pairs: {{ computer_pairs }}</h3>
+
+    <div id="deck">
+        <img src="/static/cards/back.png" style="width:10%; height:10%;">
+        <div id="deckNo">{{ n_deck }}</div>
+    </div>
+
+    <hr/>
+
+    <h2>Player Hand</h2>
     
+    <div id="cards">
     {% for card in cards %}
-        <a href="/select/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>
+        <a class="cards" href="/select/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>
     {% endfor %}
+    </div>
+
+    <h3>Player Pairs: {{ player_pairs }}</h3>
 
 {% endblock %}

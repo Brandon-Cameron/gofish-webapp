@@ -2,14 +2,14 @@
 <html>
     <head>
         <title> {{ title }} </title>
-        <link rel="stylesheet" href="static/webapp.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='webapp.css') }}">
     </head>
 
     <body>
-        <p>
+        <p id="center">
             <ul>
                 {% for message in get_flashed_messages() %}
-                    <li>{{ message }}</li>
+                    <li id="center" class="flash">{{ message }}</li>
                 {% endfor %}
             </ul>
         </p>
@@ -19,7 +19,9 @@
 
         <hr/>
 
-        <a href="/startgame">Restart</a>
+        <div id="center">
+            <a class="button" href="/startgame">Play Again?</a>
+        </div>
 
     </body>
 </html>
