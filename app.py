@@ -3,6 +3,22 @@ from flask import Flask, render_template, session, flash
 import cards
 import random
 
+import DBcm
+
+creds = {
+    "host": "localhost",
+    "user": "gofishappuser",
+    "password": "gofishpasswd",
+    "database": "gofishappdb",
+}
+
+with DBcm.UseDatabase(creds) as db:
+    db.execute("select * from scores")
+    results = db.fetchall()
+
+for r in results:
+    print(r)
+
 app = Flask(__name__)
 app.secret_key = "awdlwaspdlwphfksmdkelfkdseofpdklsmelkf"
 
