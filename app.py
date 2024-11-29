@@ -13,7 +13,8 @@ creds = {
 }
 
 with DBcm.UseDatabase(creds) as db:
-    db.execute("select * from scores")
+    db.execute("select * from players")
+    results = []
     results = db.fetchall()
 
 for r in results:
@@ -99,7 +100,8 @@ def process_card_selection(value):
         return render_template(
              "gameover.html",
              title = "Game Over",
-             state = session["state"]
+             state = session["state"],
+             leader = results
         )
 
     return render_template(
@@ -107,6 +109,7 @@ def process_card_selection(value):
         title = "The computer wants to know",
         value = the_value,
         cards = card_images, # available in the template as {{ cards }}
+        leader = results
     )
 
 @app.get("/pick/<value>")

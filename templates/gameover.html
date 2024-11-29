@@ -5,4 +5,14 @@
     <h3>GAME OVER</h3>
     <h2>{{ state }}</h2>
 
+    <hr/>
+
+    <table>
+    {%for r in leader%}
+        <tr>
+            <h3>{{ r }}</h3>
+        </tr>
+    {% endfor %}
+    </table>
+
 {% endblock %}
