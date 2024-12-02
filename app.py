@@ -12,13 +12,8 @@ creds = {
     "database": "gofishappdb",
 }
 
-with DBcm.UseDatabase(creds) as db:
-    db.execute("select * from players")
-    results = []
-    results = db.fetchall()
-
-for r in results:
-    print(r)
+results = []
+currentUser = "Test3"
 
 app = Flask(__name__)
 app.secret_key = "awdlwaspdlwphfksmdkelfkdseofpdklsmelkf"
@@ -97,6 +92,8 @@ def process_card_selection(value):
 
     check_game_over()
     if(session["gameover"] == True):
+        addScore()
+        results = setupBoard()
         return render_template(
              "gameover.html",
              title = "Game Over",
@@ -109,7 +106,6 @@ def process_card_selection(value):
         title = "The computer wants to know",
         value = the_value,
         cards = card_images, # available in the template as {{ cards }}
-        leader = results
     )
 
 @app.get("/pick/<value>")
@@ -130,6 +126,7 @@ def process_the_picked_card(value):
     card_images = [ card.lower().replace(" ","_") + ".png" for card in session["player"]]
     check_game_over()
     if(session["gameover"] == True):
+        setupBoard()
         return render_template(
              "gameover.html",
              title = "Game Over",
@@ -172,5 +169,24 @@ def check_game_over():
             session["state"] = "Player Wins!"
             session["gameover"] = True
             return
+
+def addScore():
+    with DBcm.UseDatabase(creds) as db:
+        db.execute("select * from players")
+        results = db.fetchall()
+
+    for r in results:
+        if currentUser == r[0]:
+            with DBcm.UseDatabase(creds) as db:
+                db.execute("insert into players (username, score, wins, loss) values ('Test4',123, 2, 3)")
+        
+   
+
+def setupBoard():
+    with DBcm.UseDatabase(creds) as db:
+        db.execute("select * from players order by score desc limit 10")
+        results = db.fetchall()
+
+    return results
 
 app.run(debug=True)

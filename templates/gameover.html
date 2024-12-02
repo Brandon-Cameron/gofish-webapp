@@ -7,12 +7,23 @@
 
     <hr/>
 
-    <table>
-    {%for r in leader%}
-        <tr>
-            <h3>{{ r }}</h3>
-        </tr>
-    {% endfor %}
-    </table>
+    <div id="center">
+        <table>
+            <tr>
+                <th>Users</td>
+                <th>Score</td>
+                <th>Wins</td>
+                <th>Loss</td>
+            </tr>
+        {%for r in leader%}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+                <td>{{ r[3] }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

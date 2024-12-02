@@ -43,6 +43,35 @@ h2 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+table {
+    margin: auto;
+}
+
+th {
+    font-size: 35px;
+    border: 3px ridge #00bbff;
+    background-color: #02386e;
+    text-align: left;
+    padding: 8px;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+td {
+    font-size: 35px;
+    border: 3px ridge #00bbff;
+    text-align: left;
+    padding: 8px;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+tr:nth-child(even) {
+    background-color: #0080ff76;
+  }
+
 .flash {
     font-size: 50px;
     -webkit-text-stroke-color: white;
