@@ -13,7 +13,8 @@ creds = {
 }
 
 results = []
-currentUser = "Test3"
+currentUser = "Test7"
+score = 6969
 
 app = Flask(__name__)
 app.secret_key = "awdlwaspdlwphfksmdkelfkdseofpdklsmelkf"
@@ -92,7 +93,10 @@ def process_card_selection(value):
 
     check_game_over()
     if(session["gameover"] == True):
-        addScore()
+        scoreStr = str(score)
+        query = createSQLQuery(currentUser, scoreStr)
+
+        addScore(query)
         results = setupBoard()
         return render_template(
              "gameover.html",
@@ -170,7 +174,7 @@ def check_game_over():
             session["gameover"] = True
             return
 
-def addScore():
+def addScore(query):
     with DBcm.UseDatabase(creds) as db:
         db.execute("select * from players")
         results = db.fetchall()
@@ -178,7 +182,14 @@ def addScore():
     for r in results:
         if currentUser == r[0]:
             with DBcm.UseDatabase(creds) as db:
-                db.execute("insert into players (username, score, wins, loss) values ('Test4',123, 2, 3)")
+                db.execute("update players set score = 99999 where username = 'Test4'")
+                return
+
+    with DBcm.UseDatabase(creds) as db:
+            db.execute(query)
+    
+
+
         
    
 
@@ -188,5 +199,11 @@ def setupBoard():
         results = db.fetchall()
 
     return results
+
+def createSQLQuery(username, score):
+    
+    query = "insert into players (username, score, wins, loss) values ('" + username + "'," + score + ", 0, 0)"
+
+    return query
 
 app.run(debug=True)
