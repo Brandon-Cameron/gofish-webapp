@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, flash
+from flask import Flask, render_template, session, flash, request
 
 import cards
 import random
@@ -41,8 +41,27 @@ def reset_state():
     session["state"] = ""
 
 @app.get("/")
-@app.get("/startgame")
+def enterUser():
+
+
+    reset_state()
+    card_images = [ card.lower().replace(" ","_") + ".png" for card in session["player"]]
+    print(card_images)
+
+    return render_template(
+        "intro.html",
+        title = "Welcome to GoFish for the Web",
+        cards = card_images, # available in the template as {{ cards }}
+        player_pairs = int(len(session["player_pairs"]) / 2),
+        computer_pairs = int(len(session["computer_pairs"]) / 2),
+        n_computer = len(session["computer"]), #available in the template as {{ n_computer }}
+        n_deck = len(session["deck"])
+    )
+
+@app.route('/startgame', methods = ['POST'])
 def start():
+
+    currentUser = request.form["username"]
     reset_state()
     card_images = [ card.lower().replace(" ","_") + ".png" for card in session["player"]]
     print(card_images)
@@ -93,6 +112,9 @@ def process_card_selection(value):
 
     check_game_over()
     if(session["gameover"] == True):
+
+        score = session["player_pairs"] * 100
+
         scoreStr = str(score)
         query = createSQLQuery(currentUser, scoreStr)
 
@@ -130,11 +152,19 @@ def process_the_picked_card(value):
     card_images = [ card.lower().replace(" ","_") + ".png" for card in session["player"]]
     check_game_over()
     if(session["gameover"] == True):
-        setupBoard()
+       
+        score = session["player_pairs"] * 100
+
+        scoreStr = str(score)
+        query = createSQLQuery(currentUser, scoreStr)
+
+        addScore(query)
+        results = setupBoard()
         return render_template(
              "gameover.html",
              title = "Game Over",
-             state = session["state"]
+             state = session["state"],
+             leader = results
         )
     
     return render_template(

@@ -1,0 +1,1 @@
+Score of 100 is multiplyed by number of pairs

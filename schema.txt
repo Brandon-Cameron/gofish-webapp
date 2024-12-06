@@ -1,0 +1,10 @@
+gofishappdb:
+	table: players
+
+players:
+	username
+	score
+	wins
+	loss
+
+"select * from players order by score desc limit 10

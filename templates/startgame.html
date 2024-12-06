@@ -23,7 +23,9 @@
     
     <div id="cards">
     {% for card in cards %}
-        <a class="cards" href="/select/{{ card[: card.find("_")] }}"><img src="/static/cards/{{ card }}" style="width:10%; height:10%;"></a>
+        <a class="cards" href="/select/{{ card[: card.find("_")] }}">
+            <img src="/static/cards/{{ card }}" style="width:10%; height:10%;">
+        </a>
     {% endfor %}
     </div>
 
